@@ -43,7 +43,7 @@ class Metacritic(Agent.Movies):
 		}
 
 		try:
-			json_obj = JSON.ObjectFromURL(API_URL, values=post_values)
+			json_obj = JSON.ObjectFromURL(API_URL, values=post_values, sleep=1.0)
 		except:
 			Log('*** Error retrieving data for "%s" ***' % (title))
 			return None
