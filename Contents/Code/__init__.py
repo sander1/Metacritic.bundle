@@ -28,6 +28,12 @@ class Metacritic(Agent.Movies):
 
 		(title, year) = metadata.id.rsplit('|', 1)
 
+		# If we already have a Metacritic rating and this is a slightly older movie, do not
+		# re-retrieve the rating, lowering the number of API calls.
+		if metadata.rating and int(year) < (Datetime.Now().year - 2):
+			Log('*** Already got a Metacritic rating for "%s": %s ***' % (title, metadata.rating))
+			return None
+
 		post_values = {
 			'max_pages': '1',
 			'retry': '4',
